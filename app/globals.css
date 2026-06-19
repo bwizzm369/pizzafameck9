@@ -1,26 +1,264 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #CC2222;
+  --color-primary-dark: #8B1515;
+  --color-primary-light: #E63838;
+  --color-bg: #1A1A1A;
+  --color-surface: #242424;
+  --color-surface-2: #2A2A2A;
+  --color-border: #333333;
+  --color-text: #F5F0E8;
+  --color-text-secondary: #FFFFFF;
+  --color-text-muted: #A0A0A0;
+  --color-success: #1A7F37;
+  --color-gold: #F5C842;
+
+  --font-display: 'Playfair Display', serif;
+  --font-sans: 'Inter', sans-serif;
+
+  --radius-card: 16px;
+  --radius-btn: 100px;
+  --radius-sheet: 20px;
+
+  /* Golden ratio spacing */
+  --phi-1: 0.618rem;
+  --phi-2: 1rem;
+  --phi-3: 1.618rem;
+  --phi-4: 2.618rem;
+  --phi-5: 4.236rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #1A1A1A;
+  color: #F5F0E8;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Hide scrollbar but keep scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Red scrollbar for main page */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #242424; }
+::-webkit-scrollbar-thumb { background: #CC2222; border-radius: 2px; }
+::selection { background: #CC2222; color: #fff; }
+
+/* ─── Typography ─────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+
+/* ─── Buttons ────────────────────────────────────── */
+.btn-red {
+  background: #CC2222;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-red:hover { background: #8B1515; box-shadow: 0 4px 16px rgba(204,34,34,0.25); }
+.btn-red:active { transform: scale(0.98); }
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid #333333;
+  color: #F5F0E8;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-outline:hover { border-color: #CC2222; color: #CC2222; }
+.btn-outline.active {
+  background: #CC2222;
+  border-color: #CC2222;
+  color: #fff;
+}
+
+/* ─── Input ──────────────────────────────────────── */
+.input-field {
+  background: #242424;
+  border: 1.5px solid #333333;
+  color: #F5F0E8;
+  border-radius: 12px;
+  padding: 14px 16px;
+  width: 100%;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.input-field:focus {
+  border-color: #CC2222;
+  background: #242424;
+  box-shadow: 0 0 0 3px rgba(204,34,34,0.15);
+}
+.input-field::placeholder { color: #A0A0A0; }
+
+/* ─── Card ───────────────────────────────────────── */
+.menu-card {
+  background: #242424;
+  border-radius: 16px;
+  border: 1px solid #333333;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.menu-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.3); transform: translateY(-1px); }
+.menu-card:active { transform: scale(0.98); }
+
+/* ─── Category pill ──────────────────────────────── */
+.cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1.5px solid #333333;
+  color: #A0A0A0;
+  background: #242424;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+.cat-pill.active {
+  background: #CC2222;
+  border-color: #CC2222;
+  color: #fff;
+}
+.cat-pill:hover:not(.active) { border-color: #CC2222; color: #CC2222; }
+
+/* ─── Bottom sheet ───────────────────────────────── */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 50;
+  backdrop-filter: blur(2px);
+}
+.sheet-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #242424;
+  border-radius: 20px 20px 0 0;
+  z-index: 51;
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+
+/* ─── Cart sticky bar ────────────────────────────── */
+.cart-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 12px 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  background: rgba(204,34,34,0.97);
+  border-top: 1px solid #8B1515;
+  backdrop-filter: blur(12px);
+}
+
+/* ─── Category sticky nav ────────────────────────── */
+.cat-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(26,26,26,0.97);
+  border-bottom: 1px solid #CC2222;
+  backdrop-filter: blur(12px);
+}
+
+/* ─── Stripe ─────────────────────────────────────── */
+.StripeElement {
+  background: #242424;
+  border: 1.5px solid #333333;
+  border-radius: 12px;
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.StripeElement--focus { border-color: #CC2222; box-shadow: 0 0 0 3px rgba(204,34,34,0.15); }
+.StripeElement--invalid { border-color: #ff4444; }
+
+/* ─── Badges ─────────────────────────────────────── */
+.badge-halal {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+  color: #166534; background: #DCFCE7;
+  border-radius: 4px; padding: 2px 6px;
+}
+.badge-veggie {
+  font-size: 10px; font-weight: 700;
+  color: #14532D; background: #F0FDF4;
+  border-radius: 4px; padding: 2px 6px;
+}
+
+/* ─── Size button ────────────────────────────────── */
+.size-option {
+  border: 2px solid #333333;
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #242424;
+  text-align: left;
+  width: 100%;
+}
+.size-option.selected {
+  border-color: #CC2222;
+  background: rgba(204,34,34,0.08);
+}
+.size-option:hover:not(.selected) { border-color: #555555; }
+
+/* ─── Step indicator ─────────────────────────────── */
+.step-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #333333;
+  transition: all 0.3s;
+}
+.step-dot.active { background: #CC2222; width: 24px; border-radius: 4px; }
+
+/* ─── Animations ─────────────────────────────────── */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ─── Hero (stays dark) ──────────────────────────── */
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 60%, rgba(26,26,26,1) 100%);
+}
+
+/* ─── Section header ─────────────────────────────── */
+.section-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #F5F0E8;
+  letter-spacing: -0.02em;
 }
