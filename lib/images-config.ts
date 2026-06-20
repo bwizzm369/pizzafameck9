@@ -73,11 +73,11 @@ function cycle<T>(arr: readonly T[], index: number): T {
 export const IMAGES = {
 
   // Hero (fond d'écran principal)
-  hero: U('1513104890138-7c749659a591', 1920),
+  hero: '/images/hero/mortadelle_hero_ultra.webp',
   // → Pour remplacer : '/images/hero.jpg'
 
   // Logo / avatar du restaurant
-  logo: U('1513104890138-7c749659a591', 200),
+  logo: '/images/logo/logo_transparent.png',
   // → Pour remplacer : '/images/logo.png'
 
   // ─── Pizzas Base Tomate ─────────────────────────────────────────────────

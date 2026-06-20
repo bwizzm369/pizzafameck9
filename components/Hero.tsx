@@ -21,6 +21,17 @@ export default function Hero({ onOrderClick }: HeroProps) {
       />
       <div className="hero-overlay absolute inset-0" />
 
+      {/* Logo */}
+      <motion.img
+        src={IMAGES.logo}
+        alt="Pizza Club Fameck"
+        className="absolute top-4 left-4 z-20"
+        style={{ height: '100px', width: 'auto', objectFit: 'contain' }}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      />
+
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-lg mx-auto">
         <motion.div
