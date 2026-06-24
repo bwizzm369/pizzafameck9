@@ -21,38 +21,21 @@ export default function Hero({ onOrderClick }: HeroProps) {
       />
       <div className="hero-overlay absolute inset-0" />
 
-      {/* Logo */}
-      <motion.img
-        src={IMAGES.logo}
-        alt="Pizza Club Fameck"
-        className="absolute top-4 left-4 z-20"
-        style={{ height: '100px', width: 'auto', objectFit: 'contain' }}
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      />
-
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-lg mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-1"
-        >
-          <span className="text-xs font-bold tracking-[0.3em] uppercase text-white/60">
-            Fameck · Moselle
-          </span>
-        </motion.div>
-
-        <motion.h1
+        <motion.img
+          src={IMAGES.logo}
+          alt="Pizza Club Fameck"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-display text-5xl md:text-6xl font-bold text-white leading-none mb-3"
-        >
-          Pizza <span style={{ color: '#CC2222' }}>Club</span>
-        </motion.h1>
+          style={{
+            width: 'clamp(150px, 50vw, 200px)',
+            height: 'auto',
+            objectFit: 'contain',
+            marginBottom: '1.5rem',
+          }}
+        />
 
         <motion.button
           initial={{ opacity: 0, scale: 0.95 }}
